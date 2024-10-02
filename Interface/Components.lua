@@ -90,7 +90,7 @@ function MBC:ApplyHoverEffect(Frame, NormalColor, HoverColor)
     end)
 end
 
-function MBC:CloseButton(Parent, Width, Height, OnClick)
+function MBC:CloseButton(Parent, Width, Height)
     if not Parent then return end
 
     Width = Width or 16
@@ -112,10 +112,6 @@ function MBC:CloseButton(Parent, Width, Height, OnClick)
     CloseButton:SetScript("OnLeave", function(self)
         self:GetNormalTexture():SetVertexColor(0.55, 0, 0, 0.8)
     end)
-
-    if OnClick then
-        CloseButton:SetScript("OnClick", OnClick)
-    end
 
     return CloseButton
 end

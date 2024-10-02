@@ -40,12 +40,16 @@ function MBC:CreateSettingsWindow()
     local Title = SettingsFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     Title:SetText(MBC:ApplyTextColor("Moron Box Menu", MBC.COLORS.Title))
     Title:SetPoint("TOP", SettingsFrame, "TOP", 0, -10)
+    SettingsFrame.Title = Title
     MBC:ApplyCustomFont(Title, 30)
 
-    local CloseButton = MBC:CloseButton(SettingsFrame, 20, 20, function()
+    local CloseButton = MBC:CloseButton(SettingsFrame, 20, 20)
+    SettingsFrame.CloseButton = CloseButton
+
+    CloseButton:SetScript("OnClick", function()
         SettingsFrame:Hide()
     end)
-
+    
     local Description = SettingsFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     Description:SetPoint("TOPLEFT", SettingsFrame, "TOPLEFT", 20, -60)
     Description:SetWidth(SettingsFrame:GetWidth())
@@ -57,6 +61,7 @@ function MBC:CreateSettingsWindow()
         MBC:ApplyTextColor(":\n\n", MBC.COLORS.Text)
     )
 
+    SettingsFrame.Description = Description
     MBC:ApplyCustomFont(Description, 15)
 
     local Addons = MBC:GetDependingAddons()
