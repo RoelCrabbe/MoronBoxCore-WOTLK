@@ -1,0 +1,12 @@
+## Interface: 30300
+## Title: MoronBoxCore by |cff00ccffMoRoN|r
+## Author: MoRoN
+## LoadOnDemand: 0
+## Notes: |cff00ccffMoronBoxCore|r is a lightweight addon that supports any of my addons.
+
+Core\Main.lua
+
+Interface\Styles.lua
+Interface\Helpers.lua
+Interface\Components.lua
+Interface\Display.lua
