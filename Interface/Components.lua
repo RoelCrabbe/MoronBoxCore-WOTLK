@@ -102,20 +102,45 @@ function MBC:CloseButton(Parent, Width, Height)
     CloseButton:SetPushedTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Close.tga")
     CloseButton:SetPoint("TOPRIGHT", Parent, "TOPRIGHT", -Width / 2, -Height / 2)
 
-    CloseButton:GetNormalTexture():SetVertexColor(0.55, 0, 0, 0.8)
-    CloseButton:GetPushedTexture():SetVertexColor(1, 0, 0, 0.8)
+    CloseButton:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonNormal))
+    CloseButton:GetPushedTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonHover))
 
     CloseButton:SetScript("OnEnter", function(self)
-        self:GetNormalTexture():SetVertexColor(1, 0, 0, 0.8)
+        self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonHover))
     end)
 
     CloseButton:SetScript("OnLeave", function(self)
-        self:GetNormalTexture():SetVertexColor(0.55, 0, 0, 0.8)
+        self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonNormal))
     end)
 
     return CloseButton
 end
 
+function MBC:ReturnButton(Parent, Width, Height)
+    if not Parent then return end
+
+    Width = Width or 16
+    Height = Height or 16
+
+    local ReturnButton = CreateFrame("Button", nil, Parent)
+    ReturnButton:SetSize(Width, Height)
+    ReturnButton:SetNormalTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Return.tga")
+    ReturnButton:SetPushedTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Return.tga")
+    ReturnButton:SetPoint("TOPLEFT", Parent, "TOPLEFT", Width / 2, -Height / 2)
+
+    ReturnButton:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.ReturnButtonNormal))
+    ReturnButton:GetPushedTexture():SetVertexColor(unpack(MBC.COLORS.ReturnButtonHover))
+
+    ReturnButton:SetScript("OnEnter", function(self)
+        self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.ReturnButtonHover))
+    end)
+
+    ReturnButton:SetScript("OnLeave", function(self)
+        self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.ReturnButtonNormal))
+    end)
+
+    return ReturnButton
+end
 
 -------------------------------------------------------------------------------
 -- CheckBox {{{
@@ -154,4 +179,35 @@ function MBC:CreateFrame(Parent, Backdrop, Width, Height)
     NewFrame:SetBackdrop(Backdrop)
 
     return NewFrame
+end
+
+function MBC:CreateAddonGroupText(Parent)
+
+    local GroupText = Parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    GroupText:SetPoint("CENTER", Parent, "BOTTOM", 0, 20)
+    GroupText:SetJustifyH("CENTER")
+    GroupText:SetText(
+        MBC:ApplyTextColor("This addon is part of the ", MBC.COLORS.Text) ..
+        MBC:ApplyTextColor("MoronBox", MBC.COLORS.Highlight) ..
+        MBC:ApplyTextColor(" addon group!", MBC.COLORS.Text)
+    )
+
+    MBC:ApplyCustomFont(GroupText, 12)
+    
+    return GroupText
+end
+
+function MBC:MakeMoveable(Frame)
+    if not Frame then return end
+
+    Frame:SetMovable(true)
+    Frame:EnableMouse(true)
+
+    Frame:SetScript("OnMouseDown", function(self)
+        self:StartMoving()
+    end)
+
+    Frame:SetScript("OnMouseUp", function(self)
+        self:StopMovingOrSizing()
+    end)
 end

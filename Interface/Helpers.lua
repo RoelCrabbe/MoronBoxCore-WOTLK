@@ -34,7 +34,7 @@ function MBC:HideFrameIfShown(Frame)
 end
 
 function MBC:OpenAddonGeneralWindow(Name)
-    if _G[Name] and type(_G[Name].GeneralWindow) == "function" then
+    if _G[Name] and type(_G[Name].GeneralSettingWindow) == "function" then
         _G[Name]:GeneralSettingWindow()
     else
         MBC:Print("No settings menu found for addon: " .. Name)

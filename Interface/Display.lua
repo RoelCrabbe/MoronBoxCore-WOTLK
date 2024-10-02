@@ -56,7 +56,7 @@ function MBC:CreateSettingsWindow()
     Description:SetJustifyH("LEFT")
     Description:SetHeight(0)
     Description:SetText(
-        MBC:ApplyTextColor("Loaded AddOns that depend on  ", MBC.COLORS.Text) ..
+        MBC:ApplyTextColor("Your addons that depend on ", MBC.COLORS.Text) ..
         MBC:ApplyTextColor("MoronBoxCore", MBC.COLORS.Highlight) .. 
         MBC:ApplyTextColor(":\n\n", MBC.COLORS.Text)
     )
@@ -81,16 +81,7 @@ function MBC:CreateSettingsWindow()
     end
 
     SettingsFrame:SetHeight(MBC:CalcRespHeight(#Addons, 100, 30, 15))
-    SettingsFrame:SetMovable(true)
-    SettingsFrame:EnableMouse(true)
-
-    SettingsFrame:SetScript("OnMouseDown", function(self)
-        self:StartMoving()
-    end)
-
-    SettingsFrame:SetScript("OnMouseUp", function(self)
-        self:StopMovingOrSizing()
-    end)
+    MBC:MakeMoveable(SettingsFrame)
 
     return SettingsFrame
 end

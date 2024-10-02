@@ -7,10 +7,15 @@ MBC.COLORS = {
     Highlight = "00ccff",    -- Bright cyan
     Text = "A9A9A9",         -- Dark gray (as in your example)
 
-    Background = {0.1, 0.1, 0.1},       -- Dark gray (RGB tuple)
-    HoverBackground = {0.2, 0.2, 0.2},  -- Lighter gray (RGB tuple)
-    TextLight = {0.9, 0.9, 0.9},         -- Light gray (RGB tuple)
-    FrameBackground = {0.3, 0.3, 0.3},  -- Dark Slate Gray (RGB tuple)
+    Background = {0.1, 0.1, 0.1}, -- Dark gray (RGB tuple)
+    HoverBackground = {0.2, 0.2, 0.2}, -- Lighter gray (RGB tuple)
+    TextLight = {0.9, 0.9, 0.9}, -- Light gray (RGB tuple)
+    FrameBackground = {0.3, 0.3, 0.3, 0.7}, -- Dark Slate Gray (RGBA tuple)
+    LineColor = {0.7, 0.7, 0.7, 1}, -- Line color (RGBA tuple)
+    CloseButtonNormal = {0.55, 0, 0, 0.8}, -- Close button normal color (RGBA tuple)
+    CloseButtonHover = {1, 0, 0, 0.8}, -- Close button hover color (RGBA tuple)
+    ReturnButtonNormal = {0, 0.55, 0, 0.8}, -- Return button normal color (RGBA tuple)
+    ReturnButtonHover = {0.0, 1, 0.0, 0.8} -- Darker green for return button hover (RGBA tuple)
 }
 
 MBC.BACKDROPS = {
