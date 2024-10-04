@@ -163,6 +163,44 @@ function MBC:CreateCheckButton(Parent, Title, Value, XAsis)
     return CheckButton
 end
 
+function MBC:CreateCustomCheckbox(Parent, Val, Width, Height)
+    if not Parent then return end 
+
+    Val = Val or false
+    Width = Width or 32
+    Height = Height or 32
+
+    local Checkbox = CreateFrame("CheckButton", nil, Parent)
+    Checkbox:SetSize(Width, Height)
+    Checkbox:SetBackdrop(MBC.BACKDROPS.Basic)
+    Checkbox:SetBackdropColor(unpack(MBC.COLORS.Charcoal))
+
+    local Checked = Checkbox:CreateTexture(nil, "ARTWORK")
+    Checked:SetTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Close.tga")
+    Checked:SetSize(Width * (2 / 3), Height * (2 / 3))
+    Checked:SetVertexColor(unpack(MBC.COLORS.LightBlue))
+    Checked:SetPoint("CENTER", Checkbox, "CENTER")
+    Checkbox:SetCheckedTexture(Checked)
+    Checkbox.Checked = Checked
+
+    Checkbox:SetChecked(Val)
+
+    return Checkbox
+end
+
+-------------------------------------------------------------------------------
+-- Line {{{
+-------------------------------------------------------------------------------
+
+function MBC:CreateLine(Parent, Width, Height, OffsetX, OffsetY, Color)
+    local Line = Parent:CreateTexture(nil, "ARTWORK")
+    Line:SetSize(Width, Height)
+    Line:SetPoint("CENTER", Parent, "CENTER", OffsetX, OffsetY)
+    Line:SetTexture(1, 1, 1, 1)
+    Line:SetVertexColor(unpack(Color))    
+    return Line
+end
+
 -------------------------------------------------------------------------------
 -- Frame {{{
 -------------------------------------------------------------------------------
@@ -179,6 +217,38 @@ function MBC:CreateFrame(Parent, Backdrop, Width, Height)
     NewFrame:SetBackdrop(Backdrop)
 
     return NewFrame
+end
+
+function MBC:CreateGeneralWindow(Parent, TitleText, Width, Height)
+    if not Parent then return end
+
+    Width = Width or 500
+    Height = Height or 600
+
+    local SettingsFrame = MBC:CreateFrame(Parent, MBC.BACKDROPS.Basic, Width, Height)
+    SettingsFrame:SetBackdropColor(unpack(MBC.COLORS.FrameBackground))
+
+    local Title = SettingsFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    Title:SetText(MBC:ApplyTextColor(TitleText, MBC.COLORS.Title))
+    Title:SetPoint("TOP", SettingsFrame, "TOP", 0, -10)
+    MBC:ApplyCustomFont(Title, 30)
+    SettingsFrame.Title = Title
+
+    local ReturnButton = MBC:ReturnButton(SettingsFrame, 20, 20)
+    SettingsFrame.ReturnButton = ReturnButton
+
+    local CloseButton = MBC:CloseButton(SettingsFrame, 20, 20)
+    SettingsFrame.CloseButton = CloseButton
+
+    local FrameHeight = SettingsFrame:GetHeight()
+    local LineWidth = SettingsFrame:GetWidth() - 60
+    local OffsetY = FrameHeight * 0.5 - 35
+    
+    MBC:CreateLine(SettingsFrame, LineWidth, 1, 0, -OffsetY, MBC.COLORS.LineColor)
+    MBC:CreateAddonGroupText(SettingsFrame)
+    MBC:MakeMoveable(SettingsFrame)
+    
+    return SettingsFrame
 end
 
 function MBC:CreateAddonGroupText(Parent)

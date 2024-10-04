@@ -33,6 +33,13 @@ function MBC:HideFrameIfShown(Frame)
     end
 end
 
+function MBC:ShowFrameIfShown(Frame)
+    if not Frame:IsShown() then
+        ShowUIPanel(Frame)
+    end
+end
+
+
 function MBC:OpenAddonGeneralWindow(Name)
     if _G[Name] and type(_G[Name].GeneralSettingWindow) == "function" then
         _G[Name]:GeneralSettingWindow()

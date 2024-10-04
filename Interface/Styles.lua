@@ -4,11 +4,13 @@
 
 MBC.COLORS = {
     Title = "7B68EE",        -- Medium Slate Blue
-    Highlight = "00ccff",    -- Bright cyan
+    Highlight = "00CCFF",    -- Bright cyan
     Text = "A9A9A9",         -- Dark gray (as in your example)
 
     Background = {0.1, 0.1, 0.1}, -- Dark gray (RGB tuple)
     HoverBackground = {0.2, 0.2, 0.2}, -- Lighter gray (RGB tuple)
+    Charcoal = {0.3, 0.3, 0.3}, -- Lighter gray (RGB tuple)
+    LightBlue = {0.482, 0.408, 0.933},
     TextLight = {0.9, 0.9, 0.9}, -- Light gray (RGB tuple)
     FrameBackground = {0.3, 0.3, 0.3, 0.7}, -- Dark Slate Gray (RGBA tuple)
     LineColor = {0.7, 0.7, 0.7, 1}, -- Line color (RGBA tuple)
