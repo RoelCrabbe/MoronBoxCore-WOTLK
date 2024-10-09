@@ -21,37 +21,6 @@ end
 -- Buttons {{{
 -------------------------------------------------------------------------------
 
-function MBC:CreateToggleButton(Parent, Title, IsActive, XAsis)
-    if not Parent or not Title then return end
-
-    IsActive = IsActive or false
-    XAsis = XAsis or -48.5
-
-    local ToggleButton = CreateFrame("Button", nil, Parent, "UIPanelButtonTemplate")
-    ToggleButton:SetSize(120, 30)
-    ToggleButton:SetText(Title)
-    ToggleButton:SetPoint("CENTER", Parent, "TOP", XAsis, -55)
-
-    local function UpdateButtonAppearance()
-        local TextColor = IsActive and {1, 0.82, 0} or {0.5, 0.5, 0.5}
-        ToggleButton:SetNormalTexture(IsActive and "Interface\\Buttons\\UI-Panel-Button-Up" or "Interface\\Buttons\\UI-Panel-Button-Disabled")
-        ToggleButton:GetFontString():SetTextColor(unpack(TextColor))
-    end
-
-    ToggleButton:SetScript("OnEnter", function() 
-        ToggleButton:GetFontString():SetTextColor(1, 0.82, 0) 
-    end)
-
-    ToggleButton:SetScript("OnLeave", function() UpdateButtonAppearance() end)
-
-    UpdateButtonAppearance()
-
-    return ToggleButton, function(isActive) 
-        IsActive = isActive
-        UpdateButtonAppearance() 
-    end
-end
-
 function MBC:CreateButton(Parent, Width, Height, Label)
     if not Parent or not Label then return end
 
@@ -142,6 +111,65 @@ function MBC:ReturnButton(Parent, Width, Height)
     return ReturnButton
 end
 
+function MBC:ToggleButton(Parent, Width, Height)
+    if not Parent then return end
+
+    Width = Width or 16
+    Height = Height or 16
+
+    local ToggleButton = CreateFrame("Button", nil, Parent)
+    ToggleButton:SetSize(Width, Height)
+    ToggleButton:SetNormalTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Minus.tga")
+    ToggleButton:SetPushedTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Minus.tga")
+    ToggleButton:SetPoint("CENTER", Parent, "RIGHT", -Width, 0)
+
+    ToggleButton:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonNormal))
+    ToggleButton:GetPushedTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonHover))
+
+    ToggleButton:SetScript("OnEnter", function(self)
+        self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonHover))
+        end)
+        
+    ToggleButton:SetScript("OnLeave", function(self)
+        self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonNormal))
+    end)
+
+    function UpdateButtonIcon(Item)
+        if MBR:ItemIsBlacklist(Item) then
+            ToggleButton:SetNormalTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Plus.tga")
+            ToggleButton:SetPushedTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Plus.tga")
+            ToggleButton:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonNormal))
+            ToggleButton:GetPushedTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonHover))
+
+            ToggleButton:SetScript("OnEnter", function(self)
+                self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.ReturnButtonHover))
+            end)
+
+            ToggleButton:SetScript("OnLeave", function(self)
+                self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.ReturnButtonNormal))
+            end)
+        else
+            ToggleButton:SetNormalTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Minus.tga")
+            ToggleButton:SetPushedTexture("Interface\\AddOns\\MoronBoxCore\\Media\\Icons\\Minus.tga")
+            ToggleButton:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.ReturnButtonNormal))
+            ToggleButton:GetPushedTexture():SetVertexColor(unpack(MBC.COLORS.ReturnButtonHover))
+
+            ToggleButton:SetScript("OnEnter", function(self)
+                self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonHover))
+            end)
+
+            ToggleButton:SetScript("OnLeave", function(self)
+                self:GetNormalTexture():SetVertexColor(unpack(MBC.COLORS.CloseButtonNormal))
+            end)
+        end
+    end
+
+    ToggleButton.UpdateButtonIcon = UpdateButtonIcon
+
+    return ToggleButton
+end
+
+
 -------------------------------------------------------------------------------
 -- CheckBox {{{
 -------------------------------------------------------------------------------
@@ -186,6 +214,29 @@ function MBC:CreateCustomCheckbox(Parent, Val, Width, Height)
     Checkbox:SetChecked(Val)
 
     return Checkbox
+end
+
+-------------------------------------------------------------------------------
+-- Item Icon {{{
+-------------------------------------------------------------------------------
+
+function MBC:CreateItemIcon(Parent, Item, Width, Height)
+    if not Parent then return end
+
+    Width = Width or 16
+    Height = Height or 16
+
+    local ItemIcon = CreateFrame("Button", nil, Parent)
+    ItemIcon:SetSize(Width, Height)
+    ItemIcon:SetPoint("CENTER", Parent, "LEFT", 23.5, -1)
+
+    local Texture = ItemIcon:CreateTexture()
+    Texture:SetAllPoints()
+    Texture:SetTexture(Item.Icon)
+    ItemIcon:SetNormalTexture(Texture)
+    Parent.Texture = Texture
+
+    return ItemIcon
 end
 
 -------------------------------------------------------------------------------
@@ -281,3 +332,4 @@ function MBC:MakeMoveable(Frame)
         self:StopMovingOrSizing()
     end)
 end
+

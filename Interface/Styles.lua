@@ -12,7 +12,7 @@ MBC.COLORS = {
     Charcoal = {0.3, 0.3, 0.3}, -- Lighter gray (RGB tuple)
     LightBlue = {0.482, 0.408, 0.933},
     TextLight = {0.9, 0.9, 0.9}, -- Light gray (RGB tuple)
-    FrameBackground = {0.3, 0.3, 0.3, 0.7}, -- Dark Slate Gray (RGBA tuple)
+    FrameBackground = {0.33, 0.33, 0.33, 0.80}, -- Dark Slate Gray (RGBA tuple)
     LineColor = {0.7, 0.7, 0.7, 1}, -- Line color (RGBA tuple)
     CloseButtonNormal = {0.55, 0, 0, 0.8}, -- Close button normal color (RGBA tuple)
     CloseButtonHover = {1, 0, 0, 0.8}, -- Close button hover color (RGBA tuple)
@@ -65,8 +65,9 @@ MBC.BACKDROPS = {
     Blizz_Border = {
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         tile = false,
-        edgeSize = 12,
-        insets = { left = 3, right = 3, top = 3, bottom = 3 },
+        tileSize = 16,
+        edgeSize = 16,
+        insets = { left = 4, right = 4, top = 4, bottom = 4 },
     },
 
     Blizz_Full = {

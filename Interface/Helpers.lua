@@ -20,7 +20,7 @@ function MBC:ApplyCustomFont(FontString, Size, Flags)
 end
 
 function MBC:Print(Text)
-    return Print(MBC:ApplyTextColor("MoronBox", MBC.COLORS.Title)..MBC:ApplyTextColor(": "..Text, MBC.COLORS.Text))
+    return Print(MBC:ApplyTextColor("MoronBox", MBC.COLORS.Title)..": "..Text)
 end
 
 -------------------------------------------------------------------------------
@@ -39,6 +39,13 @@ function MBC:ShowFrameIfShown(Frame)
     end
 end
 
+function MBC:ToggleFrame(Frame)
+    if Frame:IsShown() then
+        HideUIPanel(Frame)  -- Hide the frame if it's currently shown
+    else
+        ShowUIPanel(Frame)  -- Show the frame if it's currently hidden
+    end
+end
 
 function MBC:OpenAddonGeneralWindow(Name)
     if _G[Name] and type(_G[Name].GeneralSettingWindow) == "function" then
