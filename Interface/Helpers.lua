@@ -20,7 +20,7 @@ function MBC:ApplyCustomFont(FontString, Size, Flags)
 end
 
 function MBC:Print(Text)
-    return Print(MBC:ApplyTextColor("MoronBox", MBC.COLORS.Title)..": "..Text)
+    return Print(MBC:ApplyTextColor("MoronBox", MBC.COLORS.Highlight)..": "..Text)
 end
 
 -------------------------------------------------------------------------------
